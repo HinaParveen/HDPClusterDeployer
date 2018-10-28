@@ -1,0 +1,15 @@
+yum update
+yum install -y wget scp curl openssl unzip tar ansible git
+echo $(hostname -I) 'ansible-ssh-user=ansible ansible-ssh-pass=ansible' >> /etc/ansible/hosts
+useradd ansible && echo ansible | passwd ansible --stdin
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -P ""
+
+mkdir hdp_roc && cd hdp_roc
+git init
+git clone http://github.com/feeroz123/hdp_roc
+
+
+ansible-playbook hdp_centos7_playbook.yml
+
+curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://master.subex.com:8080/api/v1/blueprints/single-node-hdp-cluster -d @cluster_configuration.json
+curl -H "X-Requested-By: ambari" -X POST -u admin:admin http://master.subex.com:8080/api/v1/clusters/single-node-hdp-cluster -d @hostmapping.json
