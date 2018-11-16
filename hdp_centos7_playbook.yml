@@ -1,7 +1,5 @@
 ---
 - hosts: all
-  vars_files: 
-    - ansible_playbook.yml
   user: ansible
   become: True
   tasks:
@@ -26,17 +24,17 @@
       selinux:
         state: disabled
 
-    - name: Create hostname entry to 
-      lineinfile: dest=/etc/hostname state=present create=yes regexp='.*' line='{{hostname}}'
+    - name: Create hostname entry to "master.subex.com"
+      lineinfile: dest=/etc/hostname state=present create=yes regexp='.*' line='master.subex.com'
 
     - name: Set networking yes
       lineinfile: dest=/etc/sysconfig/network create=yes state=present regexp='NETWORKING=.*' line='NETWORKING=yes'
 
-    - name: Set hostname to {{hostname}}
-      lineinfile: dest=/etc/sysconfig/network create=yes state=present regexp='HOSTNAME=.*' line='HOSTNAME={{hostname}}'
+    - name: Set hostname to "master.subex.com"
+      lineinfile: dest=/etc/sysconfig/network create=yes state=present regexp='HOSTNAME=.*' line='HOSTNAME=master.subex.com'
 
-    - name: Create Ambari Repo
-      command: wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
+    - name: Create Ambari Repo {{ hdp_ambari_repo }}
+      command: wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
     - name: Clean YUM
       command: yum clean all
@@ -47,12 +45,13 @@
         state: installed
 
     - name: Configure Ambari agent to register at Ambari server
-      lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini create=no state=present regexp='hostname=.*' line='hostname={{hostname}}'
+      lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini create=no state=present regexp='hostname=.*' line='hostname=master.subex.com'
 
     - name: Update Ambari Agent INI file
       command: sed -i '/credential_shell_cmd/a force_https_protocol=PROTOCOL_TLSv1_2' /etc/ambari-agent/conf/ambari-agent.ini
 
-- hosts: ambari-server
+
+- hosts: all
   user: ansible
   become: True
   tasks: 
@@ -65,14 +64,13 @@
       command: ambari-server setup -s
 
     - name: Sleep
-      command: sleep 10
-      
+      command: sleep 30
+
+    - name: Copy MySQL connector jar
+      command: cp /usr/share/java/mysql-connector-java.jar /var/lib/ambari-server/resources/
+
     - name: Start Ambari server
-      command: ambari-server restart
-    
-- hosts: ambari-agents
-  user: ansible
-  become: True
-  tasks: 
+      command: ambari-server start
+
     - name: Start Ambari agent
-      command: ambari-agent restart
+      command: ambari-agent start
