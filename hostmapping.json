@@ -1,5 +1,5 @@
 {
-  "blueprint" : "single-node-hdp-cluster",
+  "blueprint" : "single_node_hdp_cluster",
   "default_password" : "admin",
   "host_groups" :[
     {

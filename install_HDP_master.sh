@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 
-logfile="install_HDP_master_`date +%d%m%Y%H%M%S`.log"
 set +x
 cleanup=$1
 
@@ -34,7 +33,6 @@ fi
 
 echo "=========================================================================================="
 
-exit 0
 echo "Staring cluster installation at `date`"
 { time bash cluster_installation.sh ;} 2>&1
 ret=$?

@@ -66,8 +66,8 @@
     - name: Sleep
       command: sleep 30
 
-    - name: Copy MySQL connector jar
-      command: cp /usr/share/java/mysql-connector-java.jar /var/lib/ambari-server/resources/
+#    - name: Copy MySQL connector jar
+#      command: cp /usr/share/java/mysql-connector-java.jar /var/lib/ambari-server/resources/
 
     - name: Start Ambari server
       command: ambari-server start

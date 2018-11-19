@@ -1,0 +1,155 @@
+{
+  "configurations" : [ ],
+  "host_groups" : [
+    {
+      "components" : [
+        {
+          "name" : "NODEMANAGER"
+        },
+        {
+          "name" : "HIVE_SERVER"
+        },
+        {
+          "name" : "SPARK2_CLIENT"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "HIVE_METASTORE"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "HCAT"
+        },
+        {
+          "name" : "SPARK2_JOBHISTORYSERVER"
+        },
+        {
+          "name" : "WEBHCAT_SERVER"
+        },
+        {
+          "name" : "ACTIVITY_ANALYZER"
+        },
+        {
+          "name" : "KAFKA_BROKER"
+        },
+        {
+          "name" : "SECONDARY_NAMENODE"
+        },
+        {
+          "name" : "HST_AGENT"
+        },
+        {
+          "name" : "SLIDER"
+        },
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        },
+        {
+          "name" : "METRICS_COLLECTOR"
+        },
+        {
+          "name" : "METRICS_GRAFANA"
+        },
+        {
+          "name" : "SPARK_CLIENT"
+        },
+        {
+          "name" : "YARN_CLIENT"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "SQOOP"
+        },
+        {
+          "name" : "HST_SERVER"
+        },
+        {
+          "name" : "MYSQL_SERVER"
+        },
+        {
+          "name" : "HISTORYSERVER"
+        },
+        {
+          "name" : "NAMENODE"
+        },
+        {
+          "name" : "ZEPPELIN_MASTER"
+        },
+        {
+          "name" : "PIG"
+        },
+        {
+          "name" : "ACTIVITY_EXPLORER"
+        },
+        {
+          "name" : "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name" : "AMBARI_SERVER"
+        },
+        {
+          "name" : "DATANODE"
+        },
+        {
+          "name" : "SPARK_JOBHISTORYSERVER"
+        },
+        {
+          "name" : "APP_TIMELINE_SERVER"
+        },
+        {
+          "name" : "HIVE_CLIENT"
+        },
+        {
+          "name" : "RESOURCEMANAGER"
+        }
+      ],
+      "configurations" : [ ],
+      "name" : "host_group_1",
+      "cardinality" : "1"
+    }
+  ],
+  "settings" : [
+    {
+      "recovery_settings" : [
+        {
+          "recovery_enabled" : "true"
+        }
+      ]
+    },
+    {
+      "service_settings" : [
+        {
+          "name" : "HIVE",
+          "credential_store_enabled" : "true"
+        },
+        {
+          "recovery_enabled" : "true",
+          "name" : "AMBARI_METRICS"
+        }
+      ]
+    },
+    {
+      "component_settings" : [
+        {
+          "recovery_enabled" : "true",
+          "name" : "METRICS_COLLECTOR"
+        }
+      ]
+    }
+  ],
+  "Blueprints" : {
+    "blueprint_name" : "single_node_hdp_cluster",
+    "stack_name" : "HDP",
+    "stack_version" : "2.6"
+  }
+}
+

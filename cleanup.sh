@@ -2,14 +2,13 @@
 
 set +x
 
+python /usr/lib/ambari-agent/lib/ambari_agent/HostCleanup.py
 ambari-server stop
 ambari-server reset
 ambari-agent stop
 service mysqld stop
 service postgresql stop
-jps |grep -v Jps| cut -d" " -f1 | xargs kill
 
-python /usr/lib/ambari-agent/lib/ambari_agent/HostCleanup.py
 
 yum remove ambari\* hadoop hdfs bigtop-jsvc bigtop-tomcat hbase\* hadoop\* hdp-select ranger\* zookeeper\* postgresql-libs postgresql postgresql-server
 yum remove mysql mysql-server mysql-libs mysql-connector-java
@@ -82,3 +81,5 @@ rm -rf /etc/yum.repos.d/ambari.repo /etc/yum.repos.d/HDP*
 
 yum clean all
 rm -rf /var/cache/yum
+#echo "Kill below processes:"
+#jps |grep -v Jps| cut -d" " -f1 | xargs kill 
